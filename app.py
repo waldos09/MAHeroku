@@ -3,9 +3,10 @@ import pandas as pd
 import numpy as np
 from sklearn import datasets
 import matplotlib.pyplot as plt
+import pickle
 
 
-#PARTE ESTEICA SIDEBAR Y TITULO
+#PARTE ESTEICA SIDEBAR Y TITULO                                                                                      
 st.write("""
 # Resultados Esperados
 En este apartado se muestran tus posibles resultados proximos. Aquellos que veas mas bajos son posibles **Puntos Criticos** 
@@ -27,9 +28,9 @@ X_adr = dataset['RESULTADOS']
 X_adr = np.array(X_adr)
 X_adr = X_adr.reshape(-1,1)
 
-y_adr=dataset['PSICOLOGO']
+y_adr=dataset['VALORACION']
 
-st.write('Tamaño de los datos:', X_adr.shape)
+#st.write('Tamaño de los datos:', X_adr.shape)
 
 
 X_month = np.array(X_adr.shape)
@@ -52,7 +53,8 @@ adr.fit(X_train,y_train)
 Y_pred = adr.predict(X_test)
 
 #streamlit run app.py
-st.write('Machine Score:', adr.score(X_train,y_train))
+scorepor = adr.score(X_train,y_train)*100
+st.write('Machine Score:', scorepor)
 
 
 
