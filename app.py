@@ -1,10 +1,27 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-from sklearn import datasets
 import matplotlib.pyplot as plt
 import pickle
+import mysql.connector as sql
 
+db = sql.connect(
+    host="bdpmye8dyhwt4hdqhgcp-mysql.services.clever-cloud.com",
+    user="upk3pjsosofutpwj",
+    passwd="CBl9dLCyWcsvG3wFSGov",
+    database="bdpmye8dyhwt4hdqhgcp"
+)
+print(db)
+cursor = db.cursor()
+#cursor.execute('SELECT contestado FROM DEncuesta')
+#c = cursor.fetchall()
+cursor.execute('SELECT resultado FROM DEncuesta')
+r = cursor.fetchall()
+cursor.execute('SELECT valoracion FROM DEncuesta')
+v = cursor.fetchall()
+print(r)
+print(v)
+db.close()
 
 #PARTE ESTEICA SIDEBAR Y TITULO                                                                                      
 st.write("""
@@ -24,12 +41,19 @@ dataset = pd.read_csv(filename,header=0)
 
 #PREPARAR LOS DATOS PARA ENTRENAR Y TESTEAR
 
-X_adr = dataset['RESULTADOS']
+#X_adr = dataset['RESULTADOS']
+#X_adr = np.array(X_adr)
+#X_adr = X_adr.reshape(-1,1)
+
+#y_adr=dataset['VALORACION']
+
+X_adr = r
 X_adr = np.array(X_adr)
 X_adr = X_adr.reshape(-1,1)
 
-y_adr=dataset['VALORACION']
-
+y_adr=v
+print(X_adr)
+print(y_adr)
 #st.write('Tamaño de los datos:', X_adr.shape)
 
 
